@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Birthday Letter For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  background:radial-gradient(circle at top,#500e2b,#050005);
+  font-family:'Cormorant Garamond',serif;
+  color:#f5e6ec;
+  overflow-x:hidden;
+}
+
+.bg-motion{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(120deg,rgba(255,255,255,.04),transparent);
+  animation:slowMove 22s linear infinite;
+  pointer-events:none;
+  z-index:-1;
+}
+
+@keyframes slowMove{
+  from{transform:translateX(-10%)}
+  to{transform:translateX(10%)}
+}
+
+.center{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.envelope-wrapper{
+  width:70vw;
+  max-width:700px;
+  aspect-ratio:3/2;
+  cursor:pointer;
+}
+
+.envelope{
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,#f7e7ce,#f3d8b6);
+  border-radius:14px;
+  box-shadow:0 40px 100px rgba(0,0,0,.6);
+  position:relative;
+  overflow:hidden;
+}
+
+.flap{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#f2d3ad,#e8c49a);
+  clip-path:polygon(0 0,100% 0,50% 55%);
+  transform-origin:top;
+  transition:transform 1s ease;
+  z-index:3;
+}
+
+/* HEART-SHAPED SEAL */
+.seal{
+  width:90px;
+  height:90px;
+  background:linear-gradient(145deg,#8b004fd3,#ff2f6d);
+  position:absolute;
+  bottom:28%;
+  left:50%;
+  transform:translateX(-50%) rotate(-45deg);
+  box-shadow:0 0 35px rgba(255,0,60,.7);
+  animation:heartbeat 3s ease-in-out infinite;
+  z-index:4;
+}
+
+.seal::before,
+.seal::after{
+  content:'';
+  width:90px;
+  height:90px;
+  background:inherit;
+  border-radius:50%;
+  position:absolute;
+}
+
+.seal::before{top:-45px;left:0}
+.seal::after{left:45px;top:0}
+
+@keyframes heartbeat{
+  0%,100%{
+    transform:translateX(-50%) rotate(-45deg) scale(1);
+    box-shadow:0 0 35px rgba(255,0,60,.6)
+  }
+  50%{
+    transform:translateX(-50%) rotate(-45deg) scale(1.1);
+    box-shadow:0 0 55px rgba(255,0,90,.9)
+  }
+}
+
+.letter{
+  position:absolute;
+  inset:8%;
+  background:#fff8ec;
+  border-radius:10px;
+  padding:40px;
+  text-align:center;
+  transform:translateY(100%);
+  transition:transform 1.2s ease;
+  z-index:2;
+}
+
+.letter h1{
+  font-family:'Great Vibes',cursive;
+  font-size:64px;
+  color:#7b002c;
+}
+.letter p {
+  margin-top: 20px;
+  font-size: 22px;
+  line-height: 1.6;
+  color: #4a2a32; /* deep wine / soft brown */
+}
+
+.open .flap{transform:rotateX(180deg)}
+.open .letter{transform:translateY(0)}
+.open .seal{opacity:0}
+
+.scene2,.scene3,.scene4{
+  min-height:100vh;
+  padding:120px 8vw;
+  opacity:0;
+  transform:translateY(60px);
+  transition:all 1.5s ease;
+}
+
+.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.birthday-title{
+  font-family:'Great Vibes',cursive;
+  font-size:80px;
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.timer{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:50px;
+}
+
+.soft-emphasis {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  color: #ffd6e3;
+}
+
+.message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  line-height: 1.8;
+  font-weight: 500;
+  color: rgba(237, 231, 233, 0.95);
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+.memory-title{
+  font-family:'Great Vibes',cursive;
+  font-size:64px;
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.polaroid-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:60px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.polaroid{
+  background:#fff;
+  padding:14px 14px 28px;
+  box-shadow:0 30px 60px rgba(0,0,0,.45);
+  transform:rotate(var(--r));
+  transition:.6s ease;
+  cursor:pointer;
+}
+
+.polaroid:hover{
+  transform:rotate(0deg) scale(1.05)
+}
+
+.polaroid img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+
+.caption{
+  margin-top:16px;
+  font-size:18px;
+  color:#2c2c2c;
+}
+
+.secret-text{
+  display:block;
+  margin-top:12px;
+  font-size:16px;
+  color:#7b002c;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.6s ease;
+}
+
+.scene4{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.final-letter{
+  max-width:900px;
+  padding:80px;
+  background:rgba(10,5,10,.65);
+  border-radius:20px;
+}
+
+#inkText{
+  font-family:'Great Vibes',cursive;
+  font-size:42px;
+  line-height:1.8;
+  white-space:pre-line;
+}
+</style>
+</head>
+
+<body>
+<div class="bg-motion"></div>
+
+<div class="center" id="scene1">
+  <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="seal"></div>
+      <div class="letter">
+        <h1>Happy Birthday</h1>
+        <p>Mi Amor ❤️</p> <p></p> <p></p> <p>Initially, I had planned to make some physical form present for you, but that would have been temporary, and I wanted your birthday present something to be permanent, so eventually came up with this, in hope that, this one sticks with you forever, with you!</p> <p> SCROLL DOWN</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="scene2" id="scene2">
+  <div class="message">
+  This page exists because, it's your-BIRTHDAAAYYYYYYY.<br><br>
+  <span class="soft-emphasis"></span>
+  <div class="birthday-title">Happy Birthday Sakshi</div>
+  
+  <div class="timer" id="timer"></div>
+  <div class="message">
+    <p>To my Sakshi, My Puchkiii, There's a lot to say, much to express, like you happing in my life is the best thing happend to me this year. </p>
+     <p> Being here with you, on your special day, makes it even more of a special day to me than to you, as I always wanted to share your Birthday's moment, even if it had been a small part of the day, since I stared to have a liking of you, being specefic, class 4th,</p>
+     <p> It did took a long time to happen, but finally it is happening, seeing you read this, and me being present to catch and hold on to these expressions of yours while you read. By now the cake would have been cut, you already would have made a wish, but letting you know, god is bit more on my side, as he's making my wish come true, of me being with you, sharing this moment,TOGETHER and boy-o-boy, it was worth the wait!</p>
+      <p> From the moment we reconnected, to now, each moment spent with you, is just as special, beautiful and pure as it was back then, now with more love to carry in our hearts(As we grew older, our heart grew with us, so eventually more love to give and share)</p>
+       <p> Happy Birthday, my love. Here's to many more birthdays together :3</p>
+
+  </div>
+</section>
+
+<section class="scene3" id="scene3">
+  <h2 class="memory-title">Ladies and Gentlemen — HER</h2>
+  <div class="polaroid-grid">
+    <div class="polaroid" style="--r:-6deg"><img src="assets/photos/photo1.jpeg"><p class="caption">There's something about this picture which screams out loud to me, still trying to figure it out what, but all I can say is, this is just another reason, to say I love You 🤍</p></div>
+    <div class="polaroid" style="--r:4deg"><img src="assets/photos/photo2.jpeg"><p class="caption"> There's now way I could miss this photo of yours, in this outfit, the moment you shared this pic to me, my heart skipped a beat(still does), even though it was like just 2-3 days since we started talking, AGAIN, and this still is my one of the favourite picutes of yours. </p></div>
+    <div class="polaroid" style="--r:-3deg" ondblclick="revealSecret()"><img src="assets/photos/photo3.jpeg"><p class="caption">Us, This picture needs no description, it speaks for itself!✨</p><span class="secret-text"> You know Sakshi, it still feels something straing out of a Fantasy World, meeting you again, getting you back as my girl, to the one whome I used to like and eventually love since I was kid, Just letting you know this guy loves you just soo fkn much, and would never stop loving you, just stick by MY SIDE🤍</span></div>
+    <div class="polaroid" style="--r:5deg"><img src="assets/photos/photo4.jpeg"><p class="caption">You make everything softer</p></div>
+    <div class="polaroid" style="--r:-5deg"><img src="assets/photos/photo5.jpeg"><p class="caption">Still my favourite smile ❤️</p></div>
+    <div class="polaroid" style="--r:3deg"><img src="assets/photos/photo6.jpeg"><p class="caption">Just so you know, the girl in the picture is, MINE</p></div>
+    <div class="polaroid" style="--r:-4deg"><img src="assets/photos/photo7.jpeg"><p class="caption">Where time slowed down</p></div>
+    <div class="polaroid" style="--r:6deg"><img src="assets/photos/photo8.jpeg"><p class="caption">My comfort place</p></div>
+    <div class="polaroid" style="--r:-2deg"><img src="assets/photos/photo9.jpeg"><p class="caption">And, it’s always you</p></div>
+  </div>
+</section>
+
+<section class="scene4" id="scene4">
+  <div class="final-letter">
+    <p id="inkText">To the girl who unknowingly became my safest place,
+Every smile of yours changed something inside me,
+Every beat of my heart whispers your name,
+Comes from the guy,who's always been wandring around,nothing to lose, no hopes in love but had a heart full of love, no where to go, Lost, and feels like, finally found his home in you;
+If love had a language, it would sound like you.
+Happy 22nd Birthday Piyu. Always you. ❤️</p>
+  </div>
+</section>
+
+<audio id="bgMusic" preload="auto" loop>
+  <source src="assets/audio/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const birthDate = new Date(Date.UTC(2003,11,21));
+
+function openEnvelope(){
+  const env=document.getElementById('envelope');
+  const music=document.getElementById('bgMusic');
+  if(!env.classList.contains('open')){
+    env.classList.add('open');
+    music.volume=.4;
+    music.currentTime=0;
+    music.play().catch(()=>{});
+    setTimeout(()=>document.getElementById('scene2').classList.add('show'),1600);
+  }
+}
+
+function updateTimer(){
+  const now=new Date();
+  let diff=now-birthDate;
+  const y=Math.floor(diff/31557600000);
+  diff%=31557600000;
+  const m=Math.floor(diff/2629800000);
+  diff%=2629800000;
+  const d=Math.floor(diff/86400000);
+  diff%=86400000;
+  const s=Math.floor(diff/1000);
+  document.getElementById('timer').innerText=
+    `${y}y / ${m}m / ${d}d / ${s}s`;
+}
+setInterval(updateTimer,1000); updateTimer();
+
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting && x.target.classList.add('show'))
+},{threshold:.3});
+['scene2','scene3','scene4'].forEach(id=>obs.observe(document.getElementById(id)));
+
+function revealSecret(){
+  const s=document.querySelector('.secret-text');
+  s.style.opacity=1;
+  s.style.transform='translateY(0)';
+}
+
+const music=document.getElementById('bgMusic');
+const fadeObs=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      let v=music.volume;
+      const f=setInterval(()=>{
+        if(v>0.01){v-=0.01;music.volume=v}
+        else{music.pause();clearInterval(f)}
+      },200);
+    }
+  })
+},{threshold:.6});
+fadeObs.observe(document.getElementById('scene4'));
+</script>
+</body>
+</html>
